@@ -1,6 +1,7 @@
+// SelectedContact.jsx
 import React, { useState, useEffect } from 'react';
 
-const SelectedContact = ({ selectedContactId }) => {
+const SelectedContact = ({ selectedContactId, setSelectedContactId }) => {
   const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
@@ -22,9 +23,15 @@ const SelectedContact = ({ selectedContactId }) => {
     if (selectedContactId !== null) {
       fetchContactDetails();
     } else {
+      // If selectedContactId is null, set selectedContact to null
       setSelectedContact(null);
     }
   }, [selectedContactId]);
+
+  const goHome = () => {
+    // You may also want to reset selectedContactId here to fully navigate back to the list
+    setSelectedContactId(null);
+  };
 
   if (!selectedContact) {
     return <div>Loading...</div>;
@@ -36,6 +43,7 @@ const SelectedContact = ({ selectedContactId }) => {
       <p>Name: {selectedContact.name}</p>
       <p>Email: {selectedContact.email}</p>
       <p>Phone: {selectedContact.phone}</p>
+      <button onClick={goHome}>Back to List</button>
     </div>
   );
 };

@@ -14,14 +14,14 @@ export default function ContactList({ setSelectedContactId }) {
     setSelectedContactId(contactId);
   };
 
-  useEffect(() => {
-    async function fetchContacts() {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
-        );
+useEffect(() => {
+   async function fetchContacts() {
+     try {
+       const response = await fetch(
+         "https://jsonplaceholder.typicode.com/users"
+       );
 
-        if (!response.ok) {
+       if (!response.ok) {
           throw new Error("ERROR");
         }
 
@@ -33,25 +33,25 @@ export default function ContactList({ setSelectedContactId }) {
       }
     }
 
-    fetchContacts();
+fetchContacts();
   }, []);
 
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th colSpan="3">Contact List</th>
+return (
+  <table>
+    <thead>
+      <tr>
+        <th colSpan="3">Contact List</th>
+      </tr>
+    </thead>
+    <tbody>
+      {contacts.map((contact) => (
+        <tr key={contact.id} onClick={() => handleRowClick(contact.id)}>
+          <td>{contact.name}</td>
+          <td>{contact.email}</td>
+          <td>{contact.phone}</td>
         </tr>
-      </thead>
-      <tbody>
-        {contacts.map((contact) => (
-          <tr key={contact.id} onClick={() => handleRowClick(contact.id)}>
-            <td>{contact.name}</td>
-            <td>{contact.email}</td>
-            <td>{contact.phone}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+      ))}
+    </tbody>
+  </table>
+);
 }
